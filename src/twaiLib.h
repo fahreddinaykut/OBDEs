@@ -8,15 +8,22 @@
 #include "esp_err.h"
 #include "config.h"
 #include "variables.h"
-static variables *staticVars;
-   static void twai_receive_task(void *arg);
+#include "bleLib.h"
+
+static void twai_receive_task(void *arg);
+class bleLib;
+typedef struct myLibraries {
+    variables*  vars;
+    bleLib*     ble;
+
+} GenericData_t;
 class twaiLib
 {
 private:
 public:
-
- 
+ GenericData_t libs;
     twaiLib();
-    void init(variables *VARS);
-    void sendData();
+    void init(variables *VARS,bleLib *BLE);
+    void requestRPM();
+    void requestSPEED();
 };
